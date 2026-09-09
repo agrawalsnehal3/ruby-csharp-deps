@@ -1,8 +1,8 @@
 """Render the per-version documentation report as a PDF.
 
-A small markdown-ish renderer rather than a dependency: the report is a fixed
-document with headings, paragraphs, tables and code blocks, and reportlab is
-already in the project.
+Plain language on purpose. The report explains a practical decision -- where
+to get documentation for every version of a gem -- so it reads as a sequence
+of questions and answers rather than a specification.
 """
 from __future__ import annotations
 
@@ -14,8 +14,8 @@ from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
-from reportlab.platypus import (KeepTogether, PageBreak, Paragraph,
-                                SimpleDocTemplate, Spacer, Table, TableStyle)
+from reportlab.platypus import (PageBreak, Paragraph, SimpleDocTemplate,
+                                Spacer, Table, TableStyle)
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir,
                    "Third_party_packages", "docs",
@@ -26,48 +26,48 @@ MUTED = colors.HexColor("#5b6b7a")
 RULE = colors.HexColor("#d6dee6")
 BAND = colors.HexColor("#eef3f8")
 ACCENT = colors.HexColor("#1f3a5f")
+GOOD = colors.HexColor("#e8f2ea")
 
 ss = getSampleStyleSheet()
 H1 = ParagraphStyle("H1", parent=ss["Title"], fontName="Helvetica-Bold",
-                    fontSize=19, leading=24, textColor=INK, alignment=TA_LEFT,
-                    spaceAfter=2)
-SUB = ParagraphStyle("SUB", fontName="Helvetica", fontSize=9.5, leading=13,
-                     textColor=MUTED, spaceAfter=14)
-H2 = ParagraphStyle("H2", fontName="Helvetica-Bold", fontSize=12.5, leading=16,
-                    textColor=ACCENT, spaceBefore=15, spaceAfter=5)
-H3 = ParagraphStyle("H3", fontName="Helvetica-Bold", fontSize=10.2, leading=14,
-                    textColor=INK, spaceBefore=10, spaceAfter=3)
-BODY = ParagraphStyle("BODY", fontName="Helvetica", fontSize=9.4, leading=13.6,
-                      textColor=INK, spaceAfter=6)
-BULLET = ParagraphStyle("BULLET", parent=BODY, leftIndent=11, bulletIndent=2,
-                        spaceAfter=3)
-CODE = ParagraphStyle("CODE", fontName="Courier", fontSize=8.2, leading=11.4,
-                      textColor=INK, backColor=BAND, borderPadding=6,
-                      leftIndent=2, spaceBefore=3, spaceAfter=8)
+                    fontSize=20, leading=25, textColor=INK, alignment=TA_LEFT,
+                    spaceAfter=3)
+SUB = ParagraphStyle("SUB", fontName="Helvetica", fontSize=10, leading=14,
+                     textColor=MUTED, spaceAfter=16)
+H2 = ParagraphStyle("H2", fontName="Helvetica-Bold", fontSize=13, leading=17,
+                    textColor=ACCENT, spaceBefore=17, spaceAfter=6)
+BODY = ParagraphStyle("BODY", fontName="Helvetica", fontSize=9.6, leading=14.2,
+                      textColor=INK, spaceAfter=7)
+LEAD = ParagraphStyle("LEAD", parent=BODY, fontSize=10.4, leading=15.4,
+                      spaceAfter=9)
+BULLET = ParagraphStyle("BULLET", parent=BODY, leftIndent=13, spaceAfter=4)
+CODE = ParagraphStyle("CODE", fontName="Courier", fontSize=8.4, leading=12,
+                      textColor=INK, backColor=BAND, borderPadding=7,
+                      spaceBefore=4, spaceAfter=9)
+KEY = ParagraphStyle("KEY", fontName="Helvetica", fontSize=9.8, leading=14.4,
+                     textColor=INK, backColor=GOOD, borderPadding=9,
+                     spaceBefore=6, spaceAfter=10)
 NOTE = ParagraphStyle("NOTE", parent=BODY, fontSize=8.8, textColor=MUTED,
-                      leftIndent=8, borderPadding=0, spaceBefore=2)
+                      spaceBefore=3)
 
 
-def table(rows, widths, head=True):
-    data = [[Paragraph(c if isinstance(c, str) else str(c),
-                       ParagraphStyle("c", fontName=("Helvetica-Bold" if head and i == 0
-                                                     else "Helvetica"),
-                                      fontSize=8.6, leading=11.6,
-                                      textColor=(colors.white if head and i == 0 else INK)))
-             for c in row] for i, row in enumerate(rows)]
-    t = Table(data, colWidths=widths, repeatRows=1 if head else 0, hAlign="LEFT")
-    style = [("VALIGN", (0, 0), (-1, -1), "TOP"),
-             ("TOPPADDING", (0, 0), (-1, -1), 4.5),
-             ("BOTTOMPADDING", (0, 0), (-1, -1), 4.5),
-             ("LEFTPADDING", (0, 0), (-1, -1), 6),
-             ("RIGHTPADDING", (0, 0), (-1, -1), 6),
-             ("LINEBELOW", (0, 0), (-1, -2), 0.4, RULE)]
-    if head:
-        style += [("BACKGROUND", (0, 0), (-1, 0), ACCENT),
-                  ("LINEBELOW", (0, 0), (-1, 0), 0, colors.white)]
-        for r in range(2, len(data), 2):
-            style.append(("BACKGROUND", (0, r), (-1, r), BAND))
-    t.setStyle(TableStyle(style))
+def table(rows, widths):
+    data = [[Paragraph(str(c), ParagraphStyle(
+        "c", fontName="Helvetica-Bold" if i == 0 else "Helvetica",
+        fontSize=8.8, leading=12,
+        textColor=colors.white if i == 0 else INK))
+        for c in row] for i, row in enumerate(rows)]
+    t = Table(data, colWidths=widths, repeatRows=1, hAlign="LEFT")
+    st = [("VALIGN", (0, 0), (-1, -1), "TOP"),
+          ("TOPPADDING", (0, 0), (-1, -1), 5),
+          ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+          ("LEFTPADDING", (0, 0), (-1, -1), 7),
+          ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+          ("LINEBELOW", (0, 0), (-1, -2), 0.4, RULE),
+          ("BACKGROUND", (0, 0), (-1, 0), ACCENT)]
+    for r in range(2, len(data), 2):
+        st.append(("BACKGROUND", (0, r), (-1, r), BAND))
+    t.setStyle(TableStyle(st))
     return t
 
 
@@ -77,171 +77,168 @@ def b(t):
 
 def build():
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    doc = SimpleDocTemplate(OUT, pagesize=A4, leftMargin=20 * mm,
-                            rightMargin=20 * mm, topMargin=18 * mm,
-                            bottomMargin=18 * mm,
-                            title="Per-Version Documentation for Ruby Gems",
-                            author="agrawalsnehal3")
+    doc = SimpleDocTemplate(
+        OUT, pagesize=A4, leftMargin=21 * mm, rightMargin=21 * mm,
+        topMargin=18 * mm, bottomMargin=18 * mm,
+        title="Getting documentation for every version of a gem",
+        author="agrawalsnehal3")
     W = doc.width
     s = []
     P = lambda t, st=BODY: s.append(Paragraph(t, st))
 
-    P("Per-Version Documentation for Ruby Gems", H1)
-    P("Sources, completeness, and handling variability across versions", SUB)
+    P("Getting documentation for every version of a gem", H1)
+    P("Where it comes from, what is missing, and what it costs", SUB)
 
-    P("1. Problem definition", H2)
-    P("The unit of analysis is the " + b("(package, version) pair") + ", not the "
-      "package. Across 2,814 selected gems there are " + b("202,083 stable "
-      "versions") + " — median 30 per gem, mean 72.")
-    P("Completeness means: for each pair, can documentation be obtained <i>as it "
-      "stood at that version</i>? The answer depends on the source, because "
-      "sources differ fundamentally in whether they are versioned at all.")
+    # ---------------------------------------------------------------
+    P("What we are trying to do", H2)
+    P("We have 2,814 gems. Each one has published many versions — 30 on "
+      "average, and 202,083 in total. We want the documentation for every one "
+      "of those versions, not just the newest.", LEAD)
+    P("That is harder than it sounds, because documentation lives in four "
+      "different places and only some of them keep old versions around.")
 
-    P("2. Version fidelity by source", H2)
+    # ---------------------------------------------------------------
+    P("The four places documentation lives", H2)
     s.append(table([
-        ["Source", "Versioned", "Mechanism", "Present in"],
-        ["Doc comments in .gem", b("Exact"), "Documentation <i>is</i> the artifact", "48.4% of methods"],
-        ["README / docs/ in .gem", b("Exact"), "Same archive", "78.3% / 5.3%"],
-        ["rubydoc.info", "Exact", "rubydoc.info/gems/&lt;gem&gt;/&lt;version&gt;", "93.4%"],
-        ["GitHub docs/ folder", "Conditional", "?ref=&lt;tag&gt;, only if tagged", "0.6%"],
-        ["GitHub wiki", b("No"), "Own history, no release link", "81% (mostly empty)"],
-        ["Human-written site", b("Rarely"), "Usually current version only", "19.8%"],
-    ], [W * .24, W * .14, W * .38, W * .24]))
-    s.append(Spacer(1, 9))
-    P("Two consequences determine the design.")
-    P(b("The in-package tier is versioned by construction.") + " Downloading "
-      "version 1.2.3's .gem yields version 1.2.3's documentation exactly — not "
-      "an approximation. There is no completeness gap, only fetching. This "
-      "covers " + b("96.4% of gems") + ".")
-    P(b("rubydoc.info is redundant.") + " It offers per-version URLs but "
-      "generates them by running YARD over the same .gem. Scraping costs ~50 "
-      "requests per gem-version (rack alone has 42 class pages, and no bulk "
-      "route exists) to recover data already inside one artifact.")
+        ["Where", "Does it keep old versions?", "How many gems have it"],
+        ["Inside the gem file<br/>(comments, README, docs folder)",
+         b("Yes, always"), "96%"],
+        ["rubydoc.info", "Yes", "93%"],
+        ["A docs folder on GitHub", "Only if the project tags releases", "1%"],
+        ["A website someone wrote", b("Usually not"), "20%"],
+    ], [W * .34, W * .38, W * .28]))
+    s.append(Spacer(1, 10))
 
-    P("3. Tiered acquisition strategy", H2)
-    P("Rank by version fidelity and record which tier answered, so "
-      "approximations are never counted as exact.")
+    P("The first row is the important one. When you download version 1.2.3 of "
+      "a gem, the documentation for version 1.2.3 comes with it — the comments "
+      "are in the code, and the README is in the same archive.")
+
+    s.append(Paragraph(
+        b("This means most of the problem solves itself.") + " There is no "
+        "guessing and no scraping. If you can download a version, you have "
+        "that version's documentation. That covers 96% of gems.", KEY))
+
+    P("rubydoc.info also has old versions, at addresses like "
+      "rubydoc.info/gems/rack/3.2.7. But it builds those pages by reading the "
+      "gem file itself. Scraping it would mean about 50 page requests per "
+      "version to get back something already sitting in one download. So we "
+      "ignore it.")
+
+    # ---------------------------------------------------------------
+    P("Where to look, in order", H2)
+    P("Try each source in turn and write down which one answered. That way an "
+      "uncertain answer never gets mistaken for a certain one.")
     s.append(table([
-        ["Tier", "Source", "Fidelity", "Method"],
-        ["1", "In-package", b("Exact"), "Fetch &lt;gem&gt;-&lt;version&gt;.gem, parse"],
-        ["2", "GitHub at tag", "Exact if tagged", "/contents/docs?ref=&lt;tag&gt;"],
-        ["3", "Human site", "Current version only", "Fetch once, attribute to one version"],
-        ["4", "None", "—", "Record the gap"],
-    ], [W * .08, W * .22, W * .24, W * .46]))
-    s.append(Spacer(1, 9))
+        ["", "Look here", "How good is the answer"],
+        ["1", "Inside the gem file", b("Exact") + " — it is the version itself"],
+        ["2", "GitHub docs folder at the release tag", "Exact, if the project tagged that release"],
+        ["3", "The project's website", "Only describes one version, usually today's"],
+        ["4", "Nothing found", "Record the gap"],
+    ], [W * .06, W * .40, W * .54]))
+    s.append(Spacer(1, 10))
 
-    P("Tier 1 — apply to everything", H3)
-    P("python count-methods.py --versions all&nbsp;&nbsp;&nbsp;# or minor / major / N<br/>"
+    P("Step 1 needs no new code:", BODY)
+    P("python count-methods.py --versions all&nbsp;&nbsp;&nbsp;# or minor / major<br/>"
       "python export-method-inventory.py<br/>"
       "rm _docs_scan.csv &amp;&amp; python measure-doc-coverage.py", CODE)
-    P("measure-doc-coverage.py already keys on &lt;gem&gt;-&lt;version&gt;. "
-      "Per-version rows appear automatically once the cache holds multiple "
-      "versions — " + b("no new code required") + ".")
-    s.append(table([
-        ["Policy", "Fetches", "Time @12 workers", "Storage"],
-        ["Latest (current state)", "2,814", "~20 min", "1.4 GB"],
-        ["One per major", "~8–10k", "~1 h", "~10 GB"],
-        ["One per major.minor", "~30–40k", "~4–5 h", "~40 GB"],
-        ["Every version", "202,083", "~26 h", "≤250 GB"],
-    ], [W * .32, W * .18, W * .28, W * .22]))
-    s.append(Spacer(1, 9))
+    P("The coverage script already labels its results by gem <i>and</i> "
+      "version, so once more versions are downloaded, per-version numbers "
+      "appear on their own.")
 
-    P("Tier 2 — tag matching", H3)
-    P("/repos/{owner}/{repo}/contents/docs?ref=&lt;tag&gt; retrieves a docs "
-      "folder at any git ref. Gem version 1.2.3 may map to v1.2.3, 1.2.3, "
-      "rel-1.2.3, &lt;gem&gt;-1.2.3, or no tag. Resolve by ordered candidates, "
-      "recording which matched:")
-    P('CANDIDATES = ["v{v}", "{v}", "{gem}-v{v}", "{gem}/v{v}",<br/>'
-      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"rel-{v}", "release-{v}"]', CODE)
-    P("Two failure modes must be recorded rather than smoothed over:")
-    P("• " + b("Untagged releases") + " — many gems publish without tagging. "
-      "No tag, no Tier 2 answer.", BULLET)
-    P("• " + b("Monorepos") + " — rails/rails tags once for seven gems. The tag "
-      "exists but its docs/ folder is not specific to the queried gem.", BULLET)
+    # ---------------------------------------------------------------
+    P("The part that does not work cleanly", H2)
+    P("A website someone wrote by hand almost always shows one version: the "
+      "current one. bundler.io documents whatever bundler is today.", LEAD)
+    P("So we cannot use it to describe old versions. Saying that today's "
+      "bundler.io documents bundler 1.16 would be claiming that version had "
+      "features it did not have.")
+    P(b("The rule:") + " a website counts for one version only. Every other "
+      "version of that gem is marked <i>“documented somewhere, version "
+      "unknown”</i> — not counted as documented, and not counted as missing.")
+    P("A few sites do keep old versions, with addresses like /v2.4/. Those are "
+      "worth checking for, but they are rare.")
+    P("Old snapshots exist on the Wayback Machine, but matching a snapshot "
+      "date to a release date is a guess. If used at all, it should be kept "
+      "separate and labelled as such.")
 
     s.append(PageBreak())
-    P("Tier 3 — where completeness genuinely breaks", H3)
-    P("Human-written sites overwhelmingly present one version: the current one. "
-      "Three sub-cases:")
-    P("1. " + b("Version switcher present") + " (/v2.4/…, ReadTheDocs, "
-      "Docusaurus). Rare but detectable by probing a versioned path.", BULLET)
-    P("2. " + b("Site generated from a repo checkout-able at a tag") +
-      " — already covered by Tier 2.", BULLET)
-    P("3. " + b("Site shows only the present") + " — the large majority.", BULLET)
-    P("For case 3, " + b("attribute the site to exactly one version and mark all "
-      "others as “external documentation, version unknown.”") +
-      " Attributing today's bundler.io to bundler 1.16 would assert an API that "
-      "version did not have.")
-    P("Wayback Machine snapshots can retrieve historical states, but mapping "
-      "snapshot date to release date is inference, not evidence. If used, record "
-      "as a distinct tier carrying the snapshot date; never merge with exact "
-      "tiers.")
 
-    P("4. Measuring completeness", H2)
-    P("Report over (package, version) pairs with the answering tier:")
-    P("coverage_tier &#8712; {in_package, github_tag, external_current,<br/>"
-      "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-      "&nbsp;&nbsp;external_snapshot, none}", CODE)
+    # ---------------------------------------------------------------
+    P("How we know the answer is complete", H2)
+    P("Count in (gem, version) pairs, and keep the three kinds of answer "
+      "apart:")
     s.append(table([
-        ["Metric", "Definition"],
-        ["Exact coverage", "Pairs answered by Tier 1 or 2"],
-        ["Approximate", "Tier 3 — one version documented, others inferred"],
-        ["Absent", "Tier 4"],
-    ], [W * .28, W * .72]))
-    s.append(Spacer(1, 9))
-    P("Projected from current data: " + b("~96% exact, ~3% approximate, ~1% "
-      "absent") + ". The exact figure is attainable because it depends on no "
-      "scraping.")
-    P("Two required properties:")
-    P("• " + b("Never average across tiers.") + " “97% documented” is "
-      "misleading if 3% is inference. Report tiers separately.", BULLET)
-    P("• " + b("Record the denominator.") + " A gem with 500 versions and one "
-      "measured is 0.2% covered, not “covered”. Store "
-      "versions_measured / versions_published per gem so partial runs remain "
-      "visible.", BULLET)
+        ["Answer", "Meaning", "Expected"],
+        ["Exact", "Came from the gem file or a tagged release", b("~96%")],
+        ["Approximate", "A website, describing one version only", "~3%"],
+        ["Missing", "Nothing found anywhere", "~1%"],
+    ], [W * .22, W * .58, W * .20]))
+    s.append(Spacer(1, 10))
+    P("Two rules keep this honest:")
+    P("• " + b("Never merge the three into one number.") + " “97% documented” "
+      "hides that some of it is a guess.", BULLET)
+    P("• " + b("Always show how many versions were checked.") + " A gem with "
+      "500 versions where one was measured is not “done”. Record versions "
+      "checked against versions published.", BULLET)
 
-    P("5. Analytical value of per-version data", H2)
-    P("Per-version measurement captures change that latest-only data cannot:")
-    P("• " + b("Documentation adoption") + " — a gem that adds docs at v2.0; "
-      "the event is invisible otherwise.", BULLET)
-    P("• " + b("Coverage decay") + " — new undocumented methods diluting an "
-      "established gem.", BULLET)
-    P("• " + b("Documentation debt over time") + " — the API census already "
-      "produces added/removed per version. Joining both series at equal version "
-      "granularity measures whether documentation tracks or lags API growth.", BULLET)
-    P("The third is the novel measurement and requires both series at the same "
-      "granularity.")
+    # ---------------------------------------------------------------
+    P("What it costs", H2)
+    s.append(table([
+        ["How many versions", "Downloads", "Time", "Disk"],
+        ["Newest only (what we have now)", "2,814", "20 min", "1.4 GB"],
+        ["One per major version", "~9,000", "1 hour", "~10 GB"],
+        [b("One per minor version") + " &nbsp;← recommended", b("~35,000"), b("4–5 hours"), b("~40 GB")],
+        ["Every version", "202,083", "26 hours", "up to 250 GB"],
+    ], [W * .38, W * .19, W * .21, W * .22]))
+    s.append(Spacer(1, 10))
+    P(b("One per minor version is the sensible choice.") + " Patch releases "
+      "(1.2.3 to 1.2.4) are bug fixes and their documentation is nearly always "
+      "identical. Spending 26 hours to confirm that would tell us little. "
+      "Documentation changes when the API changes, and that happens at minor "
+      "versions.")
+    P("There is also one gem that would distort a full run: " +
+      b("sorbet-static has 13,376 versions") + ", almost all of them the same "
+      "code rebuilt for different platforms. On its own it would take a large "
+      "share of the time and add nothing.")
 
-    P("6. Recommendation", H2)
-    P(b("Use --versions minor") + " — approximately 30–40k fetches, 4–5 hours, "
-      "~15% the cost of <i>all</i>.")
-    P("Patch releases are overwhelmingly bug fixes with byte-identical "
-      "documentation; 26 hours and 250 GB would largely confirm that 1.2.3 and "
-      "1.2.4 match. Minor boundaries are where APIs, and therefore "
-      "documentation, move.")
-    P("One distortion to control: " + b("sorbet-static has 13,376 versions") +
-      ", nearly all platform builds of identical code. Such packages would "
-      "consume a disproportionate share of any <i>all</i> run while contributing "
-      "nothing. --versions minor collapses them; --versions 20 caps them.")
-    P("Handle the residue explicitly: Tier 2 for the ~100 gems with no "
-      "in-package documentation but a tagged repository; Tier 3 recorded as "
-      "single-version for the remainder; Tier 4 counted honestly.")
+    # ---------------------------------------------------------------
+    P("Why per-version numbers are worth having", H2)
+    P("Measuring every version shows things a single snapshot cannot:")
+    P("• A gem that " + b("started documenting itself") + " at version 2.0 — "
+      "the moment it happened is invisible otherwise.", BULLET)
+    P("• A gem whose documentation is " + b("falling behind") + ", because new "
+      "methods keep arriving undocumented.", BULLET)
+    P("• Whether documentation " + b("keeps up with the API") + " at all. We "
+      "already record how many methods each version added or removed, so "
+      "putting the two together shows the gap growing or closing.", BULLET)
+    P("The last one is the measurement that does not exist anywhere else, and "
+      "it needs both numbers at the same version granularity.")
 
-    s.append(Spacer(1, 14))
-    P("Figures are measured from the 2,814-gem selection in this repository. "
-      "Timings assume 12 concurrent workers, the rate measured against "
-      "rubygems.org during collection.", NOTE)
+    # ---------------------------------------------------------------
+    P("In short", H2)
+    P("Download the gems. The documentation is already inside them, correct "
+      "for each version, and that handles 96% of the work with no scraping at "
+      "all.", LEAD)
+    P("For the small remainder, check GitHub at the release tag. For the "
+      "handful left after that, record the website against a single version "
+      "and be honest that the rest are unknown.")
+
+    s.append(Spacer(1, 16))
+    P("All figures are measured from the 2,814-gem selection in this "
+      "repository. Times assume 12 downloads at once, the rate measured "
+      "against rubygems.org during collection.", NOTE)
 
     def furniture(canvas, d):
         canvas.saveState()
         canvas.setStrokeColor(RULE)
         canvas.setLineWidth(0.5)
-        canvas.line(20 * mm, 12 * mm, A4[0] - 20 * mm, 12 * mm)
-        canvas.setFont("Helvetica", 7.6)
+        canvas.line(21 * mm, 12 * mm, A4[0] - 21 * mm, 12 * mm)
+        canvas.setFont("Helvetica", 7.8)
         canvas.setFillColor(MUTED)
-        canvas.drawString(20 * mm, 8 * mm,
-                          "Per-Version Documentation for Ruby Gems")
-        canvas.drawRightString(A4[0] - 20 * mm, 8 * mm, str(canvas.getPageNumber()))
+        canvas.drawString(21 * mm, 8 * mm,
+                          "Documentation for every version of a gem")
+        canvas.drawRightString(A4[0] - 21 * mm, 8 * mm,
+                               str(canvas.getPageNumber()))
         canvas.restoreState()
 
     doc.build(s, onFirstPage=furniture, onLaterPages=furniture)
