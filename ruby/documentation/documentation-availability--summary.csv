@@ -1,8 +1,0 @@
-metric,value,note
-packages,2808,
-documentation inside the package,2708,96.4%
-nothing in the package,100,3.6% -- an external site is the only source
-,,
-total download size (MB),717,
-,,
-HOW TO FETCH,"GET https://rubygems.org/downloads/<gem>-<version>.gem -- doc comments are in the source, README is in the archive",

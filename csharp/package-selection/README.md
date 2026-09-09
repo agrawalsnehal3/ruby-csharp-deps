@@ -8,10 +8,10 @@ The download cut is 90%. A 95% file is included for reference but nothing reads 
 
 | file | size |
 |---|---|
-| `download-coverage-90.xlsx` | 61 KB |
-| `download-coverage-95.xlsx` | 126 KB |
+| `download-coverage-curve.csv` | 0 KB |
+| `download-coverage.csv` | 239 KB |
 | `selected-packages.csv` | 303 KB |
-| `selection-overlap-analysis.xlsx` | 9 KB |
+| `selection-overlap.csv` | 0 KB |
 
 ## Scripts
 

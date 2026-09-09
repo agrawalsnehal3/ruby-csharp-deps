@@ -10,7 +10,7 @@ Ruby is parsed from source; C# is read from compiled IL metadata. Different tool
 |---|---|
 | `api-method-counts-other-assemblies.csv` | 71 KB |
 | `api-method-counts.csv` | 891 KB |
-| `api-overview.xlsx` | 385 KB |
+| `api-summary.csv` | 1 KB |
 
 ## Scripts
 

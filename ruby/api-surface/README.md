@@ -9,8 +9,7 @@ Ruby is parsed from source; C# is read from compiled IL metadata. Different tool
 | file | size |
 |---|---|
 | `api-method-counts.csv` | 310 KB |
-| `api-overview.xlsx` | 278 KB |
-| `api-summary-by-package.csv` | 373 KB |
+| `api-summary.csv` | 1 KB |
 | `method-inventory.csv.gz` | 17.0 MB |
 
 ## Scripts

@@ -8,7 +8,8 @@ The all-versions figure is version_count x latest size: an over-estimate, since 
 
 | file | size |
 |---|---|
-| `storage-requirements.xlsx` | 147 KB |
+| `storage-requirements.csv` | 149 KB |
+| `storage-summary.csv` | 1 KB |
 
 ## Scripts
 

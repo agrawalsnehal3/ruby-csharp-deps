@@ -6,21 +6,8 @@ A documentation link is not evidence of documentation. 93% of gems have a rubydo
 
 | file | size |
 |---|---|
-| `documentation-availability.xlsx` | 200 KB |
-| `documentation-coverage--best-documented.csv` | 85 KB |
-| `documentation-coverage--custom-doc-sites.csv` | 118 KB |
-| `documentation-coverage--gems.csv` | 927 KB |
-| `documentation-coverage--no-docs-at-all.csv` | 21 KB |
-| `documentation-coverage--summary.csv` | 1 KB |
-| `documentation-coverage.xlsx` | 746 KB |
-| `documentation-sources.xlsx` | 692 KB |
-| `primary-documentation-link--all-gems.csv` | 989 KB |
-| `primary-documentation-link--custom-doc-sites.csv` | 109 KB |
-| `primary-documentation-link--docs-on-rubygems.csv` | 957 KB |
-| `primary-documentation-link--docs-only-on-github.csv` | 29 KB |
-| `primary-documentation-link--no-docs-found.csv` | 4 KB |
-| `primary-documentation-link--summary.csv` | 1 KB |
-| `primary-documentation-link.xlsx` | 1.1 MB |
+| `documentation-summary.csv` | 3 KB |
+| `documentation.csv` | 1.4 MB |
 
 ## Scripts
 

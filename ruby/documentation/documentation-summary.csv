@@ -1,0 +1,63 @@
+section,metric,value,note,share
+availability,packages,2808,,
+availability,documentation inside the package,2708,96.4%,
+availability,nothing in the package,100,3.6% -- an external site is the only source,
+availability,,,,
+availability,total download size (MB),717,,
+availability,,,,
+availability,HOW TO FETCH,"GET https://rubygems.org/downloads/<gem>-<version>.gem -- doc comments are in the source, README is in the archive",,
+coverage,gems in set,3490.0,,
+coverage,gems scanned from cache,3327.0,rest not cached,
+coverage,,,,
+coverage,--- DECLARED LINKS ---,,,
+coverage,declare a docs URL,2310.0,66.2%,
+coverage,  of which auto-generated (rubydoc/rdoc.info),1957.0,a page exists whether or not anyone wrote docs,
+coverage,  of which a custom doc site,353.0,,
+coverage,declare a changelog URL,1273.0,,
+coverage,declare a wiki URL,146.0,,
+coverage,,,,
+coverage,--- SHIPPED FILES ---,,,
+coverage,ship a README,2604.0,78.3% of scanned,
+coverage,ship a CHANGELOG,1954.0,,
+coverage,ship a LICENSE,2672.0,,
+coverage,ship a docs/ or guides/ folder,237.0,,
+coverage,,,,
+coverage,--- WRITTEN DOC COMMENTS ---,,,
+coverage,methods total,938947.0,,
+coverage,methods with a doc comment,453995.0,48.4%,
+coverage,median per-gem coverage,24.1,%,
+coverage,gems with 0% documented,687.0,yet most still publish a docs link,
+coverage,gems with >80% documented,347.0,,
+sources,RUBY,,,
+sources,  packages,2808.0,,
+sources,  hand-written site,555.0,19.8%,
+sources,  tool-generated,2622.0,93.4%,
+sources,  readme,2143.0,76.3%,
+sources,  docs folder,149.0,5.3%,
+sources,  github docs,16.0,0.6%,
+sources,  github wiki,2274.0,81.0%,
+sources,  github pages,15.0,0.5%,
+sources,  homepage,2750.0,97.9%,
+sources,  tool-generated and nothing else,532.0,a page exists; nobody wrote it,
+sources,  no link of any kind,1.0,,
+where docs live,gems examined,3490.0,,
+where docs live,,,,
+where docs live,--- WHERE DOCS WERE FOUND ---,,,
+where docs live,rubygems:generated_from_comments,1946.0,,55.8%
+where docs live,gem:readme_only,581.0,,16.6%
+where docs live,rubygems:project_site,388.0,,11.1%
+where docs live,rubygems:custom_doc_site,353.0,,10.1%
+where docs live,gem:docs_folder,106.0,,3.0%
+where docs live,github:wiki,53.0,,1.5%
+where docs live,github:homepage,32.0,,0.9%
+where docs live,none_found,21.0,,0.6%
+where docs live,github:docs_folder,7.0,,0.2%
+where docs live,github:pages,3.0,,0.1%
+where docs live,,,,
+where docs live,--- REGISTRY vs GITHUB ---,,,
+where docs live,found via RubyGems / the gem itself,3374.0,,
+where docs live,found only on GitHub,95.0,,
+where docs live,nothing found anywhere,21.0,,
+where docs live,rows with a blank best_doc_url,34.0,,should equal 'nothing found anywhere'
+where docs live,,,,
+where docs live,declare a docs URL but 0% documented methods,647.0,,the link exists; the documentation does not
