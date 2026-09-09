@@ -1,0 +1,22 @@
+metric,value,note
+packages selected,2814,
+packages counted,2808,
+not counted,6,"no_versions, versions_error:HTTPError"
+,,
+"METHODS, all visibilities",1140669,
+  public,1028895,90.2%
+  private,101806,
+  protected,9968,
+,,
+defined in Ruby,1167122,before dedup
+defined natively (C/C++/Rust),9123,
+gems with native code,185,
+,,
+median methods per gem,67,
+mean methods per gem,406.2,
+largest,186722,google-api-client
+,,
+lines of code,9658248,
+files with parse errors,183,out of 98521 parsed
+,,
+NOTE,counts are a lower bound,method_missing and define_method with a computed name cannot be seen by a parser

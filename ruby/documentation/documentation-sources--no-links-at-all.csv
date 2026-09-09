@@ -1,0 +1,2 @@
+package,version,downloads,doc_types_available,link_count,handwritten_site,tool_generated_docs,readme_in_package,docs_folder_in_package,docs_folder_files,xml_docs_in_package,github_repo,github_docs_folder,github_wiki,github_pages,homepage,changelog,registry_page,doc_coverage_pct
+expgen,0.1.1,26855003,readme,0,,,README.md,,,,,,,,,,https://rubygems.org/gems/expgen,0

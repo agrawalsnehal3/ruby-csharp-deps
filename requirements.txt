@@ -1,0 +1,6 @@
+pandas
+xlsxwriter
+openpyxl
+tree-sitter
+tree-sitter-ruby
+dnfile

@@ -1,0 +1,6 @@
+selection,packages
+stars (direct deps of top-100 by stars),2185
+forks (direct deps of top-100 by forks),2339
+downloads (90% of registry downloads),1100
+union -- the selected set,3352
+in all three,564

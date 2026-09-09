@@ -1,0 +1,21 @@
+metric,value,note
+packages selected,3352.0,
+packages counted,2849.0,
+no countable API,503.0,"metapackages, native-only and analyzer packages ship no callable managed API -- these are real zeros"
+,,
+public methods,1316375.0,
+properties,1268587.0,"counted once, not get+set"
+events,19964.0,
+API members total,2604926.0,public methods + properties + events
+,,
+constructors,375984.0,not inside API members total
+operators,40087.0,not inside API members total
+,,
+private methods,506548.0,covers 1414 packages
+all MethodDef rows,6060400.0,"every method in the assembly, including private and generated"
+,,
+public types,398133.0,
+median API members per package,131.0,
+largest,128943.0,Microsoft.Graph
+,,
+bytes transferred,652936468.0,against 4.8 GB of packages -- ranged reads

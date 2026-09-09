@@ -1,0 +1,21 @@
+metric,value,note
+registry,ruby,size of the published .gem
+packages,2808,
+,,
+TOTAL download size (GB),1.39,every package at its current version
+TOTAL download size (MB),1393.9,
+,,
+mean package size (KB),485,
+median package size (KB),28,
+90th percentile (KB),228,
+largest package (MB),257.2,wkhtmltopdf-binary
+smallest package (KB),4.5,
+,,
+--- EVERY PUBLISHED VERSION ---,,
+versions published in total,202083,sum of version_count across all packages
+mean versions per package,72,
+median versions per package,30,
+most versions,13376,sorbet-static
+ESTIMATED size of all versions (GB),250.9,"version_count x latest size -- an over-estimate, since packages grow and older versions are smaller"
+  vs latest-version-only (GB),1.39,180.0x larger
+largest by all-versions estimate (GB),80.6,sorbet-static

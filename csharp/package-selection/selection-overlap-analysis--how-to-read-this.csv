@@ -1,0 +1,5 @@
+Unnamed: 0,explanation
+What this measures,"How much the three selections agree. Jaccard = overlap / union: 1.0 means identical sets, 0 means nothing in common."
+Why it is here,"It is the justification for combining three selections instead of picking one. If two agreed closely, one would be redundant."
+Download selection used,90% of registry downloads. The 95% cut is in download-coverage-95pct.xlsx for reference and is not part of the selection.
+What it shows,"stars and forks agree strongly -- both measure what people write. Neither agrees much with downloads, which measures what machines install, largely as transitive dependencies nobody names."

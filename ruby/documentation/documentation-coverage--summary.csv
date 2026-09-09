@@ -1,0 +1,23 @@
+metric,value,note
+gems in set,3490.0,
+gems scanned from cache,3327.0,rest not cached
+,,
+--- DECLARED LINKS ---,,
+declare a docs URL,2310.0,66.2%
+  of which auto-generated (rubydoc/rdoc.info),1957.0,a page exists whether or not anyone wrote docs
+  of which a custom doc site,353.0,
+declare a changelog URL,1273.0,
+declare a wiki URL,146.0,
+,,
+--- SHIPPED FILES ---,,
+ship a README,2604.0,78.3% of scanned
+ship a CHANGELOG,1954.0,
+ship a LICENSE,2672.0,
+ship a docs/ or guides/ folder,237.0,
+,,
+--- WRITTEN DOC COMMENTS ---,,
+methods total,938947.0,
+methods with a doc comment,453995.0,48.4%
+median per-gem coverage,24.1,%
+gems with 0% documented,687.0,yet most still publish a docs link
+gems with >80% documented,347.0,

@@ -1,0 +1,5 @@
+set_a,set_b,size_a,size_b,in_both,in_either,jaccard,pct_of_a_also_in_b,pct_of_b_also_in_a
+forks,stars,1906,2117.0,1830,2193,0.8345,96.0,86.4
+downloads,stars,1841,2117.0,1197,2761,0.4335,65.0,56.5
+downloads,forks,1841,1906.0,1142,2605,0.4384,62.0,59.9
+all three,,2814,,1119,2814,0.3977,,

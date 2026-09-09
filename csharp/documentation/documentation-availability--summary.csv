@@ -1,0 +1,8 @@
+metric,value,note
+packages,3352,
+documentation inside the package,2500,74.6%
+nothing in the package,852,25.4% -- an external site is the only source
+,,
+total download size (MB),1067,
+,,
+HOW TO FETCH,GET https://api.nuget.org/v3-flatcontainer/<id>/<version>/<id>.<version>.nupkg -- the XML doc file sits beside the assembly; a ranged read fetches only it,

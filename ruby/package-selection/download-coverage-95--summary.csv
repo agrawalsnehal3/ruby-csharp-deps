@@ -1,0 +1,10 @@
+metric,value,note
+registry,ruby,
+target,95% of all downloads,
+packages needed,3210,1.381% of the registry
+downloads covered,250449212999,95.001%
+packages in registry (downloads > 0),232483,
+total registry downloads,263628289567,
+,,
+most downloaded,bundler,3670861388
+least downloaded in this set,gooddata_datawarehouse,5033723

@@ -1,0 +1,13 @@
+metric,value,note
+RUBY,,
+  packages,2808.0,
+  hand-written site,555.0,19.8%
+  tool-generated,2622.0,93.4%
+  readme,2143.0,76.3%
+  docs folder,149.0,5.3%
+  github docs,16.0,0.6%
+  github wiki,2274.0,81.0%
+  github pages,15.0,0.5%
+  homepage,2750.0,97.9%
+  tool-generated and nothing else,532.0,a page exists; nobody wrote it
+  no link of any kind,1.0,

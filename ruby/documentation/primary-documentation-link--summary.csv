@@ -1,0 +1,22 @@
+metric,value,share
+gems examined,3490.0,
+,,
+--- WHERE DOCS WERE FOUND ---,,
+rubygems:generated_from_comments,1946.0,55.8%
+gem:readme_only,581.0,16.6%
+rubygems:project_site,388.0,11.1%
+rubygems:custom_doc_site,353.0,10.1%
+gem:docs_folder,106.0,3.0%
+github:wiki,53.0,1.5%
+github:homepage,32.0,0.9%
+none_found,21.0,0.6%
+github:docs_folder,7.0,0.2%
+github:pages,3.0,0.1%
+,,
+--- REGISTRY vs GITHUB ---,,
+found via RubyGems / the gem itself,3374.0,
+found only on GitHub,95.0,
+nothing found anywhere,21.0,
+rows with a blank best_doc_url,34.0,should equal 'nothing found anywhere'
+,,
+declare a docs URL but 0% documented methods,647.0,the link exists; the documentation does not

@@ -1,0 +1,24 @@
+metric,value,note
+registry,csharp,size of the published .nupkg
+packages,3352,
+,,
+TOTAL download size (GB),8.72,every package at its current version
+TOTAL download size (MB),8720.8,
+,,
+mean package size (KB),2541,
+median package size (KB),193,
+90th percentile (KB),3420,
+largest package (MB),260.3,Mongo2Go
+smallest package (KB),11.5,
+,,
+--- EVERY PUBLISHED VERSION ---,,
+versions published in total,269847,sum of version_count across all packages
+mean versions per package,80.5,
+median versions per package,37,
+most versions,1744,AWSSDK.EC2
+ESTIMATED size of all versions (GB),1072.8,"version_count x latest size -- an over-estimate, since packages grow and older versions are smaller"
+  vs latest-version-only (GB),8.72,123.0x larger
+largest by all-versions estimate (GB),61.8,Xamarin.UITest
+,,
+actually downloaded (MB),202.2,ranged reads fetch only the zip index and one assembly
+saving vs full download,97.7%,

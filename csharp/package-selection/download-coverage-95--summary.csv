@@ -1,0 +1,10 @@
+metric,value,note
+registry,csharp,
+target,95% of all downloads,
+packages needed,2481,0.444% of the registry
+downloads covered,973882282874,95.002%
+packages in registry (downloads > 0),558515,
+total registry downloads,1025122093692,
+,,
+most downloaded,Microsoft.Extensions.DependencyInjection.Abstractions,12493950814
+least downloaded in this set,itext.bouncy-castle-adapter,17380539

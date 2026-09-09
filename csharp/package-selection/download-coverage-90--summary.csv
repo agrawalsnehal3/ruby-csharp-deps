@@ -1,0 +1,10 @@
+metric,value,note
+registry,csharp,
+target,90% of all downloads,
+packages needed,1100,0.197% of the registry
+downloads covered,922685623149,90.007%
+packages in registry (downloads > 0),558515,
+total registry downloads,1025122093692,
+,,
+most downloaded,Microsoft.Extensions.DependencyInjection.Abstractions,12493950814
+least downloaded in this set,NUglify,80859592
