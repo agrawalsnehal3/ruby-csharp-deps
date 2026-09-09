@@ -1,40 +1,132 @@
 # NuGet packages
 
-3,352 packages: the direct dependencies of the top 100 C# repositories by stars and by forks, plus the packages covering 90% of all NuGet downloads.
+**3,352 packages** selected from the 100 most-starred and 100 most-forked C# repositories on GitHub, plus the packages covering 90% of all NuGet downloads.
 
-The two language trees are structured identically, so the same question
-lives at the same path in both.
+---
 
-| folder | the question it answers |
+## Which packages were selected
+
+Three signals, combined. A package qualifies if any one of them picks it.
+
+| Signal | Packages |
 |---|---|
-| `repositories` | The GitHub projects the study starts from |
-| `dependencies` | What those projects declare they depend on |
-| `package-selection` | The packages studied, and why each was included |
-| `api-surface` | How many methods each package exposes |
-| `documentation` | Whether each package is documented, and where |
-| `releases` | Every published version, with repository and registry links |
-| `storage-footprint` | Bytes required to fetch the set |
+| stars | 2,185 |
+| forks | 2,339 |
+| downloads (90%) | 1,100 |
+| **Union — the studied set** | **3,352** |
 
-Each folder has a README describing its files, and a `scripts/` subfolder
-holding the code that produced them. To re-run a stage, gather that
-folder's scripts into one directory first -- they import each other by
-module name.
+### Where each package came from
 
-## Columns worth knowing
+| Signals that picked it | Packages | Share |
+|---|---|---|
+| stars + forks | 1,006 | 30.0% |
+| forks | 680 | 20.3% |
+| stars | 566 | 16.9% |
+| stars + forks + downloads | 564 | 16.8% |
+| downloads | 398 | 11.9% |
+| forks + downloads | 89 | 2.7% |
+| stars + downloads | 49 | 1.5% |
 
-**`step-3-selected-packages/selected-packages.csv`**
-`sources` -- which of stars / forks / downloads put this package in the set.
+### How much the signals agree
 
-**`step-4-method-counts/method-counts-per-package.csv`**
-`methods_public`, `methods_private`, `properties`, `events`, `api_total`,
-`tfm` (which target framework was counted).
-`status` separates real zeros -- `metapackage`, `native_only`, `tools_only` --
-from failures. A metapackage ships no code at all, so zero is correct.
+Jaccard = shared ÷ combined. 1.0 would mean identical sets.
 
-**`step-5-documentation/xml-doc-files.csv`**
-`xml_doc` is the path to the compiler-generated documentation inside the
-package; `xml_bytes` is its size.
+| Pair | Shared | Combined | Jaccard |
+|---|---|---|---|
+| forks ↔ stars | 1,570 | 2,954 | **0.53** |
+| downloads ↔ stars | 613 | 2,672 | **0.23** |
+| downloads ↔ forks | 653 | 2,786 | **0.23** |
 
-**`step-6-versions-and-links/all-versions.csv`**
-One row per (package, version).
+No pair is close to 1.0, so no signal is redundant — that is the reason for combining all three rather than picking one. Downloads measure what machines install; stars and forks measure what people write.
 
+---
+
+## How large the APIs are
+
+| Measure | Count |
+|---|---|
+| Public methods | **1,316,375** |
+| Properties | 1,268,587 (counted once, not get+set) |
+| Events | 19,964 |
+| **API members total** | **2,604,926** |
+| Constructors | 375,984 (reported separately) |
+| Operators | 40,087 (reported separately) |
+| Every method incl. private | 6,060,400 |
+
+| | |
+|---|---|
+| Packages counted | 2,849 of 3,352 |
+| Median API members | 131 |
+| Largest | 128,943 (Microsoft.Graph) |
+
+### Packages with no countable API
+
+These are real zeros, not failures — they ship no callable managed code.
+
+| Reason | Packages |
+|---|---|
+| metapackage | 268 |
+| native_only | 116 |
+| tools_only | 91 |
+| no_lib_dll | 21 |
+| too_large | 5 |
+| error:ValueError | 2 |
+
+---
+
+## Documentation
+
+### What each package has
+
+| Source | Packages | Share |
+|---|---|---|
+| A site someone wrote | 1,229 | 36.7% |
+| README inside the package | 1,182 | 35.3% |
+| XML doc file inside the package | 2,182 | 65.1% |
+| Homepage | 2,606 | 77.7% |
+
+### How much is actually written
+
+A method counts as documented when a comment sits directly above it.
+
+| | |
+|---|---|
+| Coverage percentage | not measurable |
+
+> There is no coverage percentage for C#. The compiler records the comments that were written and nothing about the members that were not, so there is no denominator to divide by.
+
+Packages with at least one working link: **2,379** of 3,352.
+
+---
+
+## What it costs to download
+
+| | | |
+|---|---|---|
+| TOTAL download size (GB) | **8.72** | every package at its current version |
+| mean package size (KB) | **2541** |  |
+| median package size (KB) | **193** |  |
+| largest package (MB) | **260.3** | Mongo2Go |
+| versions published in total | **269847** | sum of version_count across all packages |
+| mean versions per package | **80.5** |  |
+| ESTIMATED size of all versions (GB) | **1072.8** | version_count x latest size -- an over-estimate, since packages grow a |
+| actually downloaded (MB) | **202.2** | ranged reads fetch only the zip index and one assembly |
+| saving vs full download | **97.7%** |  |
+
+---
+
+## Folders
+
+| Folder | What it answers |
+|---|---|
+| [`repositories`](repositories/) | The GitHub projects the study starts from |
+| [`dependencies`](dependencies/) | What those projects declare they depend on |
+| [`package-selection`](package-selection/) | The packages studied, and why each was included |
+| [`api-surface`](api-surface/) | How many methods each package exposes |
+| [`documentation`](documentation/) | Whether each package is documented, and where |
+| [`releases`](releases/) | Every published version, with repository and registry links |
+| [`storage-footprint`](storage-footprint/) | Bytes required to fetch the set |
+
+Each folder holds its data, a `scripts/` subfolder with the code that produced it, and a README explaining both.
+
+The same folders exist in [`ruby/`](../ruby/) and answer the same questions for that language. Every column is described in [`docs/data-dictionary.md`](../docs/data-dictionary.md).
