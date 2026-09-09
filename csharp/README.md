@@ -129,6 +129,7 @@ Packages with at least one working link: **2,379** of 3,352.
 
 | Folder | What it answers |
 |---|---|
+| [`data-collection`](data-collection/) | Where the raw registry data came from |
 | [`repositories`](repositories/) | The GitHub projects the study starts from |
 | [`dependencies`](dependencies/) | What those projects declare they depend on |
 | [`package-selection`](package-selection/) | The packages studied, and why each was included |
