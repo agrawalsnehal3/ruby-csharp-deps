@@ -14,6 +14,10 @@ A documentation link is not evidence of documentation. 93% of gems have a rubydo
 
 The code that produced these files. They import each other by module name, so gather them into one directory to run them.
 
+### `scripts/check-doc-links.py`
+
+Fetches every documentation URL once and records whether it resolves. A link in package metadata is a claim, not a fact -- 20% of hand-written Ruby doc sites no longer exist. GitHub URLs go through the authenticated API, because anonymous requests get rate-limited.
+
 ### `scripts/collect-all-doc-links.py`
 
 Collects every link a package has, separated by kind: hand-written site, tool-generated, README, docs folder, wiki, homepage. They are not equivalent and are kept apart.
