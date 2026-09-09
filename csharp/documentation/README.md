@@ -28,6 +28,33 @@ Collects every link a package has, separated by kind: hand-written site, tool-ge
 
 Locates the compiler-generated XML documentation inside each NuGet package, reading only the zip index.
 
+## How this data was obtained
+
+Located the compiler-generated XML documentation file inside each package by reading the zip index alone -- 298 MB against 14.45 GB. Links came from the nuget.org page scrape. Every URL was then fetched once.
+
+Scripts: `find-doc-files.py`, `collect-all-doc-links.py`, `check-doc-links.py`
+
+## What each field means, and where it came from
+
+| Column | Meaning | Source |
+|---|---|---|
+| `doc_coverage_pct` | Share of methods with a comment above them | tree-sitter: a comment run ending on the line before a def |
+| `handwritten_site` | A documentation site someone wrote | rubygems.org / nuget.org page, excluding auto-generated hosts |
+| `tool_generated_docs` | rubydoc.info page | The page's Documentation link, which rubygems.org fills in automatically when the gemspec declares none |
+| `readme_in_package` | Path to the README inside the archive | Walking the .gem / .nupkg |
+| `docs_folder_in_package` | Whether the archive ships docs/ or guides/ | Walking the .gem |
+| `xml_docs_in_package` | Path to the compiler-generated XML file | Reading only the .nupkg zip index |
+| `github_repo` | Repository URL | Declared repository field, or inferred from a homepage |
+| `github_docs_folder` | docs/ folder in the repository | GitHub contents API, fallback only |
+| `github_wiki` | Wiki URL, only where a wiki genuinely exists | GitHub API has_wiki, then verified by fetching |
+| `homepage` | Homepage as declared | Registry page |
+| `doc_types_available` | Which kinds of documentation exist | Derived |
+| `link_count` | How many distinct links | Derived |
+| `*_status` | Whether that link resolved | check-doc-links.py -- one fetch per distinct URL |
+| `has_working_link` | At least one link resolves | Derived |
+
+Other columns: `blocked`, `bytes_read`, `changelog`, `dead`, `dead_pct`, `docs_folder_files`, `documentation_location`, `download_url`, `downloads`, `final_url`, `github_docs_folder_status`, `github_pages`, `github_pages_status`, `github_wiki_status`, `handwritten_site_status`, `homepage_status`, `link_type`, `metric` …
+
 ---
 
 _The same folder exists in `ruby/` and answers the same question for that language._

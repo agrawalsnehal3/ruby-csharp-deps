@@ -17,6 +17,25 @@ The code that produced these files. They import each other by module name, so ga
 
 Reads each cached SBOM and keeps only edges starting at the repository's own root node, which is what makes a dependency direct. Filters to this language using the SPDX purl, so an npm package sharing a gem's name cannot slip through.
 
+## How this data was obtained
+
+Read each cached SBOM and kept only the edges whose source is the repository's own root node. That is what makes a dependency direct: everything else was pulled in by a dependency. Filtered to gems using the SPDX purl (`pkg:gem/`), not by name -- a Ruby repository's SBOM is roughly 70% npm, and name-matching let 19% of those through.
+
+Scripts: `select-packages.py`
+
+## What each field means, and where it came from
+
+| Column | Meaning | Source |
+|---|---|---|
+| `repository` | Which repository declares this dependency | GitHub search API |
+| `ranking` | stars or forks -- which list the repository came from | Derived |
+| `package` | The dependency's name | SBOM package entry |
+| `version` | The constraint as declared, not resolved | SBOM versionInfo |
+| `ecosystem` | gem, nuget, npm, githubactions ... | SBOM purl -- pkg:gem/ etc. Exact, not name-matched |
+| `direct_deps` | Direct dependencies in every ecosystem | Counted from SBOM edges starting at the repository root node |
+| `direct_in_ecosystem` | Only those in the registry being studied | The above, filtered by purl |
+| `status` | ok, or why the SBOM could not be read | GitHub API response |
+
 ---
 
 _The same folder exists in `csharp/` and answers the same question for that language._

@@ -21,6 +21,23 @@ Queries the GitHub search API for the two rankings, then fetches each repository
 
 Also writes these lists, trimmed to the top 100 of each ranking.
 
+## How this data was obtained
+
+Queried the GitHub search API for `language:Ruby` sorted by stars, then again by forks, two pages of 100 each. Then fetched the dependency SBOM for every repository returned.
+
+Scripts: `fetch-repositories.py`
+
+## What each field means, and where it came from
+
+| Column | Meaning | Source |
+|---|---|---|
+| `rank` | Position in that ranking, 1 = most stars or forks | GitHub search API result order |
+| `repository` | owner/name on GitHub | GitHub search API |
+| `stars` | Stargazers at fetch time | GitHub search API |
+| `forks` | Forks at fetch time | GitHub search API |
+| `dependency_status` | Whether GitHub returned a dependency SBOM | GitHub dependency-graph API |
+| `dependency_count` | Packages in the SBOM, all ecosystems, unfiltered | GitHub dependency-graph SBOM |
+
 ---
 
 _The same folder exists in `csharp/` and answers the same question for that language._

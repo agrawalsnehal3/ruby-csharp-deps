@@ -19,6 +19,23 @@ The code that produced these files. They import each other by module name, so ga
 
 Aggregates package sizes from the census runs. For C# it also reports bytes actually transferred, which ranged reads keep far below the package sizes.
 
+## How this data was obtained
+
+Sizes recorded during the method census -- the Content-Length of each `.gem` as it was fetched. The all-versions figure multiplies that by the version count.
+
+Scripts: `report-storage-requirements.py`
+
+## What each field means, and where it came from
+
+| Column | Meaning | Source |
+|---|---|---|
+| `bytes` | Size of the current version | Content-Length of the .gem / .nupkg |
+| `size_mb` | The same in MB | Computed |
+| `version_count` | Every published version | Registry version list |
+| `all_versions_bytes_est` | version_count x latest size | Computed. An over-estimate -- packages grow, so older versions are smaller than the one this extrapolates from |
+
+Other columns: `all_versions_gb_est`, `metric`, `note`, `package`, `stable_versions`, `value`, `version`
+
 ---
 
 _The same folder exists in `csharp/` and answers the same question for that language._

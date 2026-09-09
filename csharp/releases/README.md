@@ -17,6 +17,29 @@ The code that produced these files. They import each other by module name, so ga
 
 Fetches the full version list for every package -- one request each, cached -- and pairs it with the repository and documentation locations already established.
 
+## How this data was obtained
+
+One request per package to the flat container's `index.json`, which lists every version. NuGet gives no publication dates on that endpoint, so `released` is empty here.
+
+Scripts: `build-package-metadata.py`
+
+## What each field means, and where it came from
+
+| Column | Meaning | Source |
+|---|---|---|
+| `version` | As published | RubyGems versions API / NuGet index.json |
+| `released` | Publication date (Ruby only) | RubyGems versions API |
+| `platform` | ruby, java, x86_64-linux ... | RubyGems versions API |
+| `prerelease` | True for betas and release candidates | RubyGems flag / a hyphen in the NuGet version |
+| `version_count` | Every published version | Counted |
+| `stable_version_count` | Excluding prereleases | Counted |
+| `github_url` | Repository | Registry metadata |
+| `registry_url` | Package page | Built from the name |
+| `doc_site_url` | Best documentation link found | The documentation tier resolution |
+| `readme_file` | README path inside the package | Archive walk |
+
+Other columns: `downloads`, `error`, `first_release`, `has_readme`, `has_xml_docs`, `latest_release`, `latest_version`, `package`, `registry`, `xml_doc_file`
+
 ---
 
 _The same folder exists in `ruby/` and answers the same question for that language._
