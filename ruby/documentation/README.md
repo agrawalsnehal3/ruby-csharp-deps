@@ -6,6 +6,8 @@ A documentation link is not evidence of documentation. 93% of gems have a rubydo
 
 | file | size |
 |---|---|
+| `documentation-link-status.csv` | 601 KB |
+| `documentation-link-summary.csv` | 1 KB |
 | `documentation-summary.csv` | 3 KB |
 | `documentation.csv` | 1.4 MB |
 

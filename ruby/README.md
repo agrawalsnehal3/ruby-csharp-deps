@@ -90,6 +90,20 @@ A method counts as documented when a comment sits directly above it.
 
 > A documentation **link** is not evidence of documentation. rubydoc.info builds a page for every gem automatically, so the page exists whether or not anyone wrote a word. `doc_coverage_pct` is the column that means something.
 
+### Do the links still work?
+
+Every distinct URL was fetched once.
+
+| Link type | Links | Working | Dead | Dead % |
+|---|---|---|---|---|
+| homepage | 1,978 | 1,944 | 34 | 1.7% |
+| best_doc_url | 1,764 | 1,587 | 167 | 9.5% |
+| github_wiki | 1,206 | 1,204 | 2 | 0.2% |
+| handwritten_site | 480 | 377 | 97 | 20.2% |
+| github_docs_folder | 8 | 8 | 0 | 0.0% |
+| github_pages | 5 | 5 | 0 | 0.0% |
+| **ALL LINK TYPES** | **5,441** | **5,125** | **300** | **5.5%** |
+
 Packages with at least one working link: **2,769** of 2,808.
 
 ---

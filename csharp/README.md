@@ -95,6 +95,16 @@ A method counts as documented when a comment sits directly above it.
 
 > There is no coverage percentage for C#. The compiler records the comments that were written and nothing about the members that were not, so there is no denominator to divide by.
 
+### Do the links still work?
+
+Every distinct URL was fetched once.
+
+| Link type | Links | Working | Dead | Dead % |
+|---|---|---|---|---|
+| homepage | 744 | 735 | 9 | 1.2% |
+| handwritten_site | 281 | 251 | 19 | 6.8% |
+| **ALL LINK TYPES** | **1,025** | **986** | **28** | **2.7%** |
+
 Packages with at least one working link: **2,379** of 3,352.
 
 ---
